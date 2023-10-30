@@ -11,20 +11,6 @@ const client = new Client({
 client
   .connect()
   .then(() => console.log("Connected to the database"))
-  .catch((err) => {
-    console.error("Error connecting to the database", err);
-    setTimeout(
-      console.log(
-        client
-          .connect()
-          .then(() => console.log("Connected to the database"))
-          .catch((err) => {
-            console.error("Error connecting to the database", err);
-            setTimeout(console.log("hello"), 5000);
-          })
-      ),
-      5000
-    );
-  });
+  .catch((err) => console.error("Error connecting to the database", err));
 
 module.exports = client;
