@@ -16,7 +16,7 @@ const connectToDB = () => {
       console.error("Error connecting to the database", err);
 
       setTimeout(() => {
-        console.log("Retrying connection...");
+        console.log("Retrying connection..");
         connectToDB();
       }, 5000);
     });
