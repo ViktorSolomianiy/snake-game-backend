@@ -2,26 +2,26 @@ const { Client, Pool } = require("pg");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const connectToDB = () => {
-  const pool = new Pool({
-    connectionString: process.env.DB_URL,
-    ssl: true,
-  });
+// const connectToDB = () => {
+//   const pool = new Pool({
+//     connectionString: process.env.DB_URL,
+//     ssl: true,
+//   });
 
-  pool
-    .connect()
-    .then(() => console.log("Connected to the database"))
-    .catch((err) => {
-      console.error("Error connecting to the database", err);
+//   pool
+//     .connect()
+//     .then(() => console.log("Connected to the database"))
+//     .catch((err) => {
+//       console.error("Error connecting to the database", err);
 
-      setTimeout(() => {
-        console.log("Retrying connection..");
-        connectToDB();
-      }, 5000);
-    });
+//       setTimeout(() => {
+//         console.log("Retrying connection..");
+//         connectToDB();
+//       }, 5000);
+//     });
 
-  return pool;
-};
+//   return pool;
+// };
 
 // const connectToDB = () => {
 //   const client = new Client({
@@ -47,6 +47,11 @@ const connectToDB = () => {
 //   return client;
 // };
 
-const pool = connectToDB();
+const pool = new Pool({
+  connectionString: process.env.DB_URL,
+  ssl: true,
+});
+
+// const pool = connectToDB();
 
 module.exports = pool;
