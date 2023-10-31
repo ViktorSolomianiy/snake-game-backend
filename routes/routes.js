@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const client = require("../db");
+const pool = require("../db");
 
 router.get("/leaderboard", (req, res) => {
-  client.query(
+  pool.query(
     "SELECT name, score FROM high_scores ORDER BY score DESC",
     (err, result) => {
       if (err) {
@@ -20,7 +20,7 @@ router.get("/leaderboard", (req, res) => {
 router.post("/highscores", (req, res) => {
   const { name, score } = req.body;
 
-  client.query(
+  pool.query(
     "INSERT INTO high_scores (name, score) VALUES ($1, $2)",
     [name, score],
     (err, result) => {

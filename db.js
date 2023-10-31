@@ -1,15 +1,14 @@
-const { Client } = require("pg");
+const { Client, Pool } = require("pg");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const connectToDB = () => {
-  const client = new Client({
-    user: "postgres",
-    host: "database",
-    database: "snake_game",
-    password: "petproj",
-    port: 5432,
+  const pool = new Pool({
+    connectionString: process.env.DB_URL,
+    ssl: true,
   });
 
-  client
+  pool
     .connect()
     .then(() => console.log("Connected to the database"))
     .catch((err) => {
@@ -21,9 +20,33 @@ const connectToDB = () => {
       }, 5000);
     });
 
-  return client;
+  return pool;
 };
 
-const client = connectToDB();
+// const connectToDB = () => {
+//   const client = new Client({
+//     user: "postgres",
+//     host: "localhost",
+//     database: "snake_game",
+//     password: "petproj",
+//     port: 5432,
+//   });
 
-module.exports = client;
+//   client
+//     .connect()
+//     .then(() => console.log("Connected to the database"))
+//     .catch((err) => {
+//       console.error("Error connecting to the database", err);
+
+//       setTimeout(() => {
+//         console.log("Retrying connection..");
+//         connectToDB();
+//       }, 5000);
+//     });
+
+//   return client;
+// };
+
+const pool = connectToDB();
+
+module.exports = pool;
