@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const pool = require("../db");
+const client = require("../db");
 
 router.get("/time", async (req, res) => {
-  const result = await pool.query("SELECT NOW()");
+  const result = await client.query("SELECT NOW()");
   return res.json(result.rows[0]);
 });
 
